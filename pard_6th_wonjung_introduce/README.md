@@ -10,15 +10,15 @@
   - Github 링크
 
 - 상단 네비게이션 바
- - 이름
- - Home(index 페이지)
- - About (About 페이지로 이동)
- - Goals (Goals 페이지로 이동)
- - Favorites (Favorite 페이지로 이동)
+  - 이름
+  - Home(index 페이지)
+  - About (About 페이지로 이동)
+  - Goals (Goals 페이지로 이동)
+  - Favorites (Favorite 페이지로 이동)
 
 - main 내용
- - 프로필
-   - 인사, 간단한 이미지
+  - 프로필
+    - 인사, 간단한 이미지
   - 전공 및 수료한 캠프 나열
   - 동아리 활동
 
