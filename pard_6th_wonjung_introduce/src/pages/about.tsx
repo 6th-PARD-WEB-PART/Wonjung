@@ -78,7 +78,7 @@ export default function About() {
 
                 <div className="comm-meta">
                   <div className="comm-title">slegizzagi</div>
-                  <p className="comm-desc">24-2 ~ :</p>
+                  <p className="comm-desc">2024-2 ~ :</p>
                 </div>
               </div>
 
@@ -89,7 +89,7 @@ export default function About() {
 
                 <div className="comm-meta">
                   <div className="comm-title">Samson</div>
-                  <p className="comm-desc">25-1 ~ : </p>
+                  <p className="comm-desc">2025-1 ~ : </p>
                 </div>
               </div>
 
@@ -100,7 +100,7 @@ export default function About() {
 
                 <div className="comm-meta">
                   <div className="comm-title">PARD</div>
-                  <p className="comm-desc">25-2 ~ :</p>
+                  <p className="comm-desc">2025-2 ~ :</p>
                 </div>
               </div>
             </div>
