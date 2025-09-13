@@ -1,40 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# PARD 6기 웹파트 OT 과제
+---
+## 내용
+자기소개 페이지 제작
 
-## Getting Started
+---
+1. index 페이지
+- 좌측 네비게이션 바
+ - 이름, 대학, 전화번호(임시), 이메일(임시)
+ - Github 링크
 
-First, run the development server:
+- 상단 네비게이션 바
+ - 이름
+ - Home(index 페이지)
+ - About (About 페이지로 이동)
+ - Goals (Goals 페이지로 이동)
+ - Favorites (Favorite 페이지로 이동)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- main 내용
+ - 프로필
+   - 인사, 간단한 이미지
+  - 전공 및 수료한 캠프 나열
+  - 동아리 활동
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. About 페이지
+- 사용 가능한 언어
+ : hover를 하면 이미지가 커지도록 함
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- 가입한 공동체 소개
+ : hover를 하면 이미지가 커지도록 함
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. Goals 페이지
+- 이번 학기 목표를 학업, 개발, 생활을 중심으로 나눔
+ : 시간적인 표를 동적으로 제공하고자 했으나, JS를 잘 다루지 못하여 block으로 대체
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+4. Favorites 페이지
+- 좋아하는 것 3가지
+ : 다른 페이지들 모두 단순한 나열이어서 JS를 사용해 동적으로 나타내고자 함
+ : hover를 하면 살짝 커짐
+ : onclick()을 사용하여 누르면 정답이 보이도록 함
+ : onmouseLeave()를 사용하여 벗어났을 때 다시 ? 이미지가 보이도록 만듦
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+---
+소감
+- 아직 모르는 언어라 chat GPT를 사용했습니다.
+- 다만 복사 붙여넣기를 하는 걸 싫어하고, 공부를 할 필요가 있다고 생각해 직접 타이핑 하면서 만들었습니다. 
+- 5시간 걸렸습니다.
