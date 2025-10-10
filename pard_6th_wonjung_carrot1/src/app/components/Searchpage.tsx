@@ -1,7 +1,36 @@
-import type { FC } from "react";
+"use client";
+
+import { useState, type FC } from "react";
 import Image from "next/image";
 
+const AREAS = ["송도동", "양덕동", "여남동", "양재동"];
+
 const Searchpage: FC = () => {
+  // 위치 추가
+  const [selectedArea, setselectedArea] = useState("송도동");
+  const [showDropdown, setshowDropdown] = useState(false); // 드롭다운 닫힌 상태
+  const [searchText, setsearchText] = useState("");
+
+
+  const toggleDropdown = () => setshowDropdown((prev) => !prev);
+
+  const handleSelectArea = (area: string) => {
+    setselectedArea(area);
+    setshowDropdown(false);
+  };
+
+  const handleSearch = () => {
+    if (!searchText.trim()) {
+      console.log("검색어를 입력해주세요.");
+      return;
+    }
+
+    console.log(`${selectedArea}에서 ${searchText}을(를) 찾고 있어요!`);
+
+    // 내용 초기화
+    setsearchText("");
+  };
+
   return (
     <div className="w-full max-w-[896px] mx-auto px-8 py-12 flex flex-col justify-center items-center mb-4">
       <div className="w-full max-w-[672px] flex flex-col justify-center items-center mb-6">
@@ -21,10 +50,13 @@ const Searchpage: FC = () => {
         </div>
 
         {/* 동네 표시 */}
-        <div className="flex justify-start items-start w-full">
-          <div className="w-full max-w-[672px] flex justify-center items-center">
-            <div className="pr-4 flex justify-start items-start">
-              <button className="w-28 h-12 px-4 py-3 bg-gray-800 rounded-full flex justify-start items-center hover:bg-gray-700 transition cursor-pointer">
+        <div className="flex justify-start items-start w-full ">
+          <div className="w-full max-w-[672px] flex justify-center items-center ">
+            <div className="pr-4 flex justify-start items-start relative ">
+              <button
+                className="w-28 h-12 px-4 py-3 bg-gray-800 rounded-full flex justify-start items-center hover:bg-gray-700 transition cursor-pointer z-200 relative"
+                onClick={toggleDropdown} // 드롭다운
+              >
                 <Image
                   src="/white-point.png"
                   alt="포인터 아이콘"
@@ -34,7 +66,7 @@ const Searchpage: FC = () => {
                 />
 
                 <span className="text-white text-base font-normal whitespace-nowrap">
-                  송도동
+                  {selectedArea} {/* 선택한 이름 나오도록 */}
                 </span>
                 <Image
                   src="/white-down.png"
@@ -44,6 +76,23 @@ const Searchpage: FC = () => {
                   className="w-3 h-3 ml-2"
                 />
               </button>
+
+              {/* 드롭 다운 메뉴 */}
+              {showDropdown && (
+                <div className="absolute top-6 left-0 w-28 h-32 px-3 pt-7 bg-white rounded-[20px] inline-flex flex-col justify-center items-center gap-2.5 overflow-hidden shadow-md z-100">
+                  <div className="self-stretch text-center justify-center text-gray-700 text-sm font-medium leading-tight">
+                    {AREAS.map((area) => (
+                      <div
+                        key={area}
+                        onClick={() => handleSelectArea(area)}
+                        className="cursor-pointer hover:text-orange-500 transition"
+                      >
+                        {area}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* 검색 입력창 */}
@@ -53,10 +102,14 @@ const Searchpage: FC = () => {
                   <input
                     type="text"
                     placeholder="물건이름을 입력해주세요"
-                    className="w-full text-gray-400 text-base font-medium focus:outline-none"
+                    className="w-full text-gray-900 text-base font-medium focus:outline-none placeholder:text-gray-400"
+                    value={searchText} // 입력받은 값
+                    onChange={(e) => setsearchText(e.target.value)}
                   />
 
-                  <button className="w-8 h-10 p-2 absolute right-1 top-[4.50px] bg-orange-500 rounded-lg flex justify-center items-center hover:bg-orange-600 transition">
+                  <button className="w-8 h-10 p-2 absolute right-1 top-[4.50px] bg-orange-500 rounded-lg flex justify-center items-center transition hover:bg-black"
+                    onClick={handleSearch}
+                  >
                     <Image
                       src="/search.png"
                       alt="검색 아이콘"
@@ -96,6 +149,7 @@ const Searchpage: FC = () => {
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );
