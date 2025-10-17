@@ -1,8 +1,13 @@
+"use client";
 import type { FC } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image"; // Next.js 권장사항 => IMAGE 태그 쓰면 width, height 직접 설정
 
 const Header: FC = () => {
+  // 모바일 메뉴 열기용
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-10 w-full py-2.5 bg-white border-b border-gray-200">
       <div className="max-w-6xl mx-auto flex justify-between items-center h-14 px-4 sm:px-6">
@@ -29,9 +34,12 @@ const Header: FC = () => {
               "모임",
             ].map((item) => (
               <Link
-              href={item === '중고거래' ? `/detail` : `/${item}`}
-              key={item}
-              className="hover:text-orange-500 transition">{item}</Link>
+                href={item === "중고거래" ? `/detail` : `/${item}`}
+                key={item}
+                className="hover:text-orange-500 transition"
+              >
+                {item}
+              </Link>
             ))}
           </nav>
         </div>
@@ -59,11 +67,70 @@ const Header: FC = () => {
           </div>
 
           {/* 버튼 */}
-          <button className="px-4 py-2 bg-orange-500 rounded-lg text-center text-white text-base font-medium hover:bg-orange-600 transition">
+          <button className="hidden sm:block px-4 py-2 bg-orange-500 rounded-lg text-center text-white text-base font-medium hover:bg-orange-600 transition">
             글쓰기
+          </button>
+
+          {/* 모바일 메뉴 버튼 */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="block sm:hidden p-2 rounded transition"
+          >
+            <Image
+              src="/hamburger.png"
+              alt="메뉴 아이콘"
+              width={28}
+              height={28}
+            />
           </button>
         </div>
       </div>
+
+      {/* 모바일 일 때 메뉴 버튼 */}
+      {menuOpen && (
+        <div className="fixed inset-0 bg-white z-50 flex flex-col justify-center items-center gap-6">
+          {/* 닫기 버튼 (오른쪽 상단) */}
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="absolute top-6 right-6 p-2 rounded transition"
+          >
+            <Image
+              src="/hamburger2.png" // ✅ 닫기용 이미지 파일 경로
+              alt="닫기 버튼"
+              width={28}
+              height={28}
+              className="transition-transform duration-200"
+            />
+          </button>
+
+          {/* 메뉴 목록 */}
+          <nav className="flex flex-col items-start gap-6 text-gray-800 text-2xl font-medium pr-70">
+            {[
+              "중고거래",
+              "부동산",
+              "중고차",
+              "알바",
+              "동네업체",
+              "동네생활",
+              "모임",
+            ].map((item) => (
+              <Link
+                key={item}
+                href="/detail"
+                onClick={() => setMenuOpen(false)}
+                className="hover:text-orange-500 transition"
+              >
+                {item}
+              </Link>
+            ))}
+          </nav>
+
+          {/* 글쓰기 버튼 */}
+          <button className="mt-10 px-10 py-3 bg-orange-500 rounded-lg text-white font-medium hover:bg-orange-600 transition">
+            글쓰기
+          </button>
+        </div>
+      )}
     </header>
   );
 };

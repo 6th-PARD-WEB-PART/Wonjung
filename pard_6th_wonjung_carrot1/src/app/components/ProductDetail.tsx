@@ -3,6 +3,8 @@
 import { useState, type FC } from "react";
 import Image from "next/image";
 
+import { useSearchStore } from "@/store/searchStore";
+
 const PRODUCT_DATA = [
   {
     name: "아이폰 14 프로 128GB 퍼플 깨끗한 상태",
@@ -52,7 +54,7 @@ const ProductCard: FC<(typeof PRODUCT_DATA)[0]> = ({
   // 모달 열기 및 조회수 늘리기
   const openModal = () => {
     setIsModalOpen(true);
-    setViewCount((prev) => prev+1);
+    setViewCount((prev) => prev + 1);
   };
 
   // 채팅 수 증가시키기
@@ -62,7 +64,7 @@ const ProductCard: FC<(typeof PRODUCT_DATA)[0]> = ({
 
   return (
     <>
-      <div className="w-48 h-80 bg-white rounded-lg flex flex-col justify-start items-start gap-2 overflow-hidden">
+      <div className="w-full max-w-[200px] sm:max-w-[220px] md:max-w-[240px] lg:max-w-[260px] h-80 bg-white rounded-lg flex flex-col justify-start items-start gap-2 overflow-hidden">
         <div className="self-stretch h-44 bg-orange-100 rounded-tl-lg rounded-tr-lg"></div>
 
         {/* 정보 */}
@@ -150,8 +152,13 @@ const ProductCard: FC<(typeof PRODUCT_DATA)[0]> = ({
 
                 {/* 아래 이미지들 */}
                 <div className="w-96 h-16 flex items-center gap-2">
-                  <div className={`w-16 h-16 p-0.5 rounded-lg cursor-pointer ${mainImage === "/img_1.png" ? "outline ouline-2 outline-orange-500" : "" }`}
-                  onClick={() => setMainImage("/img_1.png")}
+                  <div
+                    className={`w-16 h-16 p-0.5 rounded-lg cursor-pointer ${
+                      mainImage === "/img_1.png"
+                        ? "outline ouline-2 outline-orange-500"
+                        : ""
+                    }`}
+                    onClick={() => setMainImage("/img_1.png")}
                   >
                     <Image
                       src="/img_1.png"
@@ -161,8 +168,13 @@ const ProductCard: FC<(typeof PRODUCT_DATA)[0]> = ({
                       className="rounded-md"
                     />
                   </div>
-                  <div className={`w-16 h-16 p-0.5 rounded-lg cursor-pointer ${mainImage === "/img_2.jpg" ? "outline ouline-2 outline-orange-500" : ""}`}
-                  onClick={() => setMainImage("/img_2.jpg")}
+                  <div
+                    className={`w-16 h-16 p-0.5 rounded-lg cursor-pointer ${
+                      mainImage === "/img_2.jpg"
+                        ? "outline ouline-2 outline-orange-500"
+                        : ""
+                    }`}
+                    onClick={() => setMainImage("/img_2.jpg")}
                   >
                     <Image
                       src="/img_2.jpg"
@@ -255,7 +267,9 @@ const ProductCard: FC<(typeof PRODUCT_DATA)[0]> = ({
                     />
                   </div>
                   <div className="flex flex-col justify-start">
-                    <div className="text-gray-900 text-base font-medium">kksa</div>
+                    <div className="text-gray-900 text-base font-medium">
+                      kksa
+                    </div>
                     <div className="text-gray-500 text-sm">왕십리도선동</div>
                   </div>
                   <div className="ml-auto text-green-600 text-sm font-medium">
@@ -266,25 +280,26 @@ const ProductCard: FC<(typeof PRODUCT_DATA)[0]> = ({
                 {/* 아래 버튼 */}
                 <div className="w-full flex items-center gap-3">
                   {/*하트 */}
-                  <div className="w-12 h-14 p-3 rounded-lg outline-1 outline-gray-300 flex justify-center items-center cursor-pointer"
+                  <div
+                    className="w-12 h-14 p-3 rounded-lg outline-1 outline-gray-300 flex justify-center items-center cursor-pointer"
                     onClick={handleLike}
                   >
                     <Image
-                        src={liked ? "/red_heart.png" : "/heart_black.png"}
-                        alt="하트"
-                        width={20}
-                        height={20}
-                        className="w-5 h-5"
-                      />
+                      src={liked ? "/red_heart.png" : "/heart_black.png"}
+                      alt="하트"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                    />
                   </div>
 
                   {/* 채팅 버튼 */}
-                  <button className="w-full h-14 bg-orange-500 text-white text-base font-medium rounded-lg hover:bg-orange-400 transition cursor-pointer"
+                  <button
+                    className="w-full h-14 bg-orange-500 text-white text-base font-medium rounded-lg hover:bg-orange-400 transition cursor-pointer"
                     onClick={handleChat}
                   >
                     당근 채팅하기
                   </button>
-
                 </div>
               </div>
             </div>
@@ -298,10 +313,16 @@ const ProductCard: FC<(typeof PRODUCT_DATA)[0]> = ({
 const ProductDetail: FC = () => {
   const TOWNS = ["송도동", "송도1동", "송도2동", "연수동", "동춘동", "청학동"];
 
+  // 전역 변수 관리
+  const { keyword } = useSearchStore();
+
+  // 필터 열기
+  const [filterOpen, setFilterOpen] = useState(false);
+
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-6 flex justify-center items-start gap-6">
+    <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-6 flex justify-center items-start gap-6">
       {/* 왼쪽 */}
-      <div className="w-64 p-4 bg-white rounded-lg flex flex-col gap-4 flex-shrink-0">
+      <div className="hidden md:flex w-64 p-4 bg-white rounded-lg flex-col gap-4 flex-shrink-0">
         <div className="self-stretch flex justify-between items-center">
           <div className="text-gray-900 text-base font-semibold">필터</div>
           <div className="text-orange-500 text-sm font-normal cursor-pointer">
@@ -348,17 +369,109 @@ const ProductDetail: FC = () => {
 
       {/* 오른쪽 */}
       <div className="flex-1 flex flex-col justify-start items-start gap-3.5 overflow-hidden">
-        <div className="text-gray-900 text-xl font-bold leading-7">
-          전체 상품
+        <div className="w-full flex items-center justify-between">
+          <div className="text-gray-900 text-xl font-bold leading-7">
+            {keyword ? `'${keyword}'에 대한 검색 결과:` : "전체 상품"}
+          </div>
+
+          {/* 오른쪽 필터 버튼 (모바일) */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setFilterOpen(true)}
+              className="flex items-center gap-1 px-3 py-1.5 bg-gray-200 rounded-full text-gray-700 text-sm font-medium hover:bg-gray-300 transition"
+            >
+              필터
+              <Image
+                src="/down.png"
+                alt="필터 아이콘"
+                width={16}
+                height={16}
+                className="w-4 h-4"
+              />
+            </button>
+          </div>
         </div>
-        <div className="self-stretch flex justify-start items-start gap-3.5 flex-wrap overflow-hidden">
-          {PRODUCT_DATA.concat(PRODUCT_DATA, PRODUCT_DATA, PRODUCT_DATA).map(
-            (product, index) => (
-              <ProductCard key={index} {...product} />
-            )
-          )}
+
+        <div
+          className=" w-full mx-auto grid grid-cols-2 gap-x-6  sm:grid-cols-2 sm:gap-x-6
+          md:grid-cols-3 lg:grid-cols-4  gap-y-5 place-items-center "
+        >
+          {PRODUCT_DATA.concat(
+            PRODUCT_DATA,
+            PRODUCT_DATA,
+            PRODUCT_DATA,
+            PRODUCT_DATA
+          ).map((product, index) => (
+            <ProductCard key={index} {...product} />
+          ))}
         </div>
       </div>
+
+      {/* 필터 모달 (모바일 전용) */}
+      {filterOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 flex justify-center items-end z-[100]"
+          onClick={() => setFilterOpen(false)}
+        >
+          <div
+            className="w-full bg-white rounded-t-2xl p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 필터 헤더 */}
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-gray-900 text-lg font-semibold">필터</span>
+              <span className="text-orange-500 text-sm cursor-pointer">
+                초기화
+              </span>
+            </div>
+
+            {/* 거래 가능만 보기 */}
+            <div className="flex items-center mb-4">
+              <input
+                type="checkbox"
+                className="w-4 h-4 border border-neutral-500 rounded focus:ring-0"
+              />
+              <span className="pl-2 text-gray-700 text-sm font-normal">
+                거래 가능만 보기
+              </span>
+            </div>
+
+            {/* 위치 */}
+            <div className="text-gray-900 text-base font-semibold mb-1">
+              위치
+            </div>
+            <div className="text-gray-600 text-sm font-normal mb-2">
+              인천광역시 연수구
+            </div>
+
+            <div className="w-full flex flex-col gap-2 mb-2">
+              {TOWNS.map((town, index) => (
+                <div key={town} className="flex items-center">
+                  <input
+                    type="radio"
+                    name="location"
+                    className="w-4 h-4 border border-gray-500 text-blue-500 focus:ring-blue-500"
+                    defaultChecked={index === 0}
+                  />
+                  <span className="pl-2 text-gray-700 text-sm">{town}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-orange-500 text-sm font-normal mb-6 cursor-pointer">
+              더보기
+            </div>
+
+            {/* 적용 버튼 */}
+            <button
+              onClick={() => setFilterOpen(false)}
+              className="w-full py-3 bg-gray-800 text-white text-base font-medium rounded-lg hover:bg-gray-700 transition"
+            >
+              적용하기
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

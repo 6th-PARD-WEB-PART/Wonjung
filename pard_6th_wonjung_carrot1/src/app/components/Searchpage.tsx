@@ -2,6 +2,8 @@
 
 import { useState, type FC } from "react";
 import Image from "next/image";
+import { useSearchStore } from "@/store/searchStore";
+import { useRouter } from "next/navigation";
 
 const AREAS = ["송도동", "양덕동", "여남동", "양재동"];
 
@@ -10,6 +12,8 @@ const Searchpage: FC = () => {
   const [selectedArea, setselectedArea] = useState("송도동");
   const [showDropdown, setshowDropdown] = useState(false); // 드롭다운 닫힌 상태
   const [searchText, setsearchText] = useState("");
+  const {setKeyword} = useSearchStore(); // 전역 상태 저장 함수
+  const router =useRouter();
 
 
   const toggleDropdown = () => setshowDropdown((prev) => !prev);
@@ -26,6 +30,12 @@ const Searchpage: FC = () => {
     }
 
     console.log(`${selectedArea}에서 ${searchText}을(를) 찾고 있어요!`);
+
+    // zustand 전역 상태에 입력한 검색어 저장하고
+    setKeyword(searchText);
+
+    // 페이지 이동
+    router.push("/detail");
 
     // 내용 초기화
     setsearchText("");

@@ -1,5 +1,9 @@
+"use client";
+
 import type { FC } from "react";
 import Image from "next/image";
+
+import { useSearchStore } from "@/store/searchStore";
 
 const POPULAR = [
   "#에어팟",
@@ -13,15 +17,18 @@ const POPULAR = [
 ];
 
 const ProductSearch: FC = () => {
+  const { keyword } = useSearchStore(); // 전역 상태 읽음
+
   return (
     <div className="w-full bg-white border-b border-gray-200 flex flex-col items-center">
       {/* 검색창 영역 */}
       <div className="w-full max-w-6xl mx-auto py-4 px-4 sm:px-6 flex flex-col items-center gap-4">
         <div className="w-full flex justify-center">
           <div className="w-full max-w-[1000px] flex items-center">
-            <div className="flex-1 relative mr-2">
+            <div className="flex-grow relative mr-2">
               <input
                 type="text"
+                defaultValue={keyword} // 전역 상태 표시하기
                 placeholder="물건 이름을 입력해주세요"
                 className="w-full h-14 px-4 py-3 bg-white rounded-lg  outline-1 outline-gray-200 text-gray-700 text-base font-medium focus:outline-none"
               />
@@ -38,7 +45,7 @@ const ProductSearch: FC = () => {
 
             {/* 동네 설정 버튼 */}
             <div>
-              <div className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition">
+              <div className="hidden sm:flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition">
                 <Image
                   src="/point.png"
                   alt="포인터 아이콘"
@@ -56,7 +63,7 @@ const ProductSearch: FC = () => {
 
         {/* 인기 검색어 */}
         <div className="w-full flex justify-center pt-2">
-          <div className="w-full max-w-[1000px] flex flex-wrap gap-2 overflow-hidden">
+          <div className="w-full max-w-[1000px] flex gap-2  whitespace-nowrap no-scrollbar py-1 px-1 overflow-hidden">
             {POPULAR.map((tag) => (
               <div
                 key={tag}
